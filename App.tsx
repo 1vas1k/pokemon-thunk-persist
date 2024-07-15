@@ -14,7 +14,7 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 export default function App() {
   return (
     <NavigationContainer>
-      <RootStack.Navigator initialRouteName="MainPage">
+      <RootStack.Navigator initialRouteName="PokemonsPage">
         <RootStack.Screen
           name="MainPage"
           component={MainPage}

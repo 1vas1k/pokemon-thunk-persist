@@ -14,16 +14,17 @@ export const MainPage = () => {
       <View style={styles.buttonContainer}>
         <ActionButton
           handleClick={() => navigate("CatchingPage")}
-          text={"Show my pokemons"}
+          text={"Cath more pokemons"}
         />
         <ActionButton
           handleClick={() => navigate("PokemonsPage")}
-          text={"Cath more pokemons"}
+          text={"Show my pokemons"}
         />
       </View>
       <View style={styles.imageContainer}>
         <Image
-          source={require("../assets/ash-and-pikachu.png")}
+          style={styles.imageStyled}
+          source={require("../assets/pikachu.png")}
           resizeMode="cover"
         />
       </View>
@@ -53,5 +54,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     paddingBottom: 30,
+  },
+  imageStyled: {
+    width: 300,
+    height: 300,
   },
 });
