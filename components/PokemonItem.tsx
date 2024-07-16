@@ -6,6 +6,8 @@ import {
   TouchableHighlight,
 } from "react-native";
 import { COLORS } from "../constants/colors";
+import { useDispatch } from "react-redux";
+import { setIsModalActive } from "../store/features/modalSlice";
 
 interface IProps {
   image: string;
@@ -14,12 +16,13 @@ interface IProps {
 }
 
 export const PokemonItem = ({ image, numberInList, pokemonName }: IProps) => {
+  const dispatch = useDispatch();
   return (
     <View style={styles.container}>
       <TouchableHighlight
         underlayColor={COLORS.LIGHT}
         style={styles.informationContainer}
-        onPress={() => console.log("pressed")}
+        onPress={() => dispatch(setIsModalActive(true))}
       >
         <Image
           style={styles.infoImageStyled}
@@ -27,10 +30,6 @@ export const PokemonItem = ({ image, numberInList, pokemonName }: IProps) => {
         />
       </TouchableHighlight>
       <View style={styles.imageContainer}>
-        {/* <Image
-          style={styles.imageStyled}
-          source={require("../assets/pikachu.png")}
-        /> */}
         <Image style={styles.imageStyled} source={{ uri: image }} />
       </View>
       <Text style={styles.textStyled}>

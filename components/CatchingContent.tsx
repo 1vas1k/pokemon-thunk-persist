@@ -1,9 +1,8 @@
-import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
 import { PokemonItem } from "./PokemonItem";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { COLORS } from "../constants/colors";
-import { InfoModal } from "./InfoModal";
 
 export interface IPokeItem {
   name: string;
@@ -27,9 +26,7 @@ export const CatchingContent = () => {
     try {
       setIsLoading(true);
       for (let item of numbers) {
-        const response = await axios.get(
-          `https://pokeapi.co/api/v2/pokemon/${item}`
-        );
+        const response = await axios.get(`${API_POKEMON}${item}`);
         const data = response.data;
         const pokemon: IPokeItem = {
           name: data.name,

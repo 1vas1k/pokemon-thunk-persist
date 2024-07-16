@@ -5,6 +5,8 @@ import { RootStackParamList } from "../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { InfoModal } from "./InfoModal";
 import { BackImage } from "./BackImage";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 interface IProps {
   title: string;
@@ -13,9 +15,10 @@ interface IProps {
 
 export const PatternPage = ({ title, component }: IProps) => {
   const { navigate } = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const isActive = useSelector<RootState>((state) => state.modal.isModalActive);
   return (
     <View style={styles.container}>
-      <InfoModal />
+      {isActive ? <InfoModal /> : <></>}
       <View style={styles.titleRow}>
         <BackImage handleClick={() => navigate("MainPage")} />
         <Text style={styles.titleStyled}>{title}</Text>

@@ -1,3 +1,5 @@
+import { Provider } from "react-redux";
+import store from "./store/store";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { MainPage } from "./components/MainPage";
@@ -13,24 +15,26 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <RootStack.Navigator initialRouteName="PokemonsPage">
-        <RootStack.Screen
-          name="MainPage"
-          component={MainPage}
-          options={{ headerShown: false }}
-        />
-        <RootStack.Screen
-          name="PokemonsPage"
-          component={PokemonsPage}
-          options={{ headerShown: false }}
-        />
-        <RootStack.Screen
-          name="CatchingPage"
-          component={CatchingPage}
-          options={{ headerShown: false }}
-        />
-      </RootStack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <RootStack.Navigator initialRouteName="MainPage">
+          <RootStack.Screen
+            name="MainPage"
+            component={MainPage}
+            options={{ headerShown: false }}
+          />
+          <RootStack.Screen
+            name="PokemonsPage"
+            component={PokemonsPage}
+            options={{ headerShown: false }}
+          />
+          <RootStack.Screen
+            name="CatchingPage"
+            component={CatchingPage}
+            options={{ headerShown: false }}
+          />
+        </RootStack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }

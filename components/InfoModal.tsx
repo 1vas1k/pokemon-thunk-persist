@@ -1,13 +1,16 @@
 import { StyleSheet, View, Text, Image } from "react-native";
 import { COLORS } from "../constants/colors";
 import { BackImage } from "./BackImage";
+import { useDispatch } from "react-redux";
+import { setIsModalActive } from "../store/features/modalSlice";
 
 export const InfoModal = () => {
+  const dispatch = useDispatch();
   return (
     <View style={styles.back}>
       <View style={styles.container}>
         <View style={styles.backContainer}>
-          <BackImage handleClick={() => console.log("Close modal")} />
+          <BackImage handleClick={() => dispatch(setIsModalActive(false))} />
         </View>
         <View style={styles.introdutionContainer}>
           <View style={styles.imageContainer}>
