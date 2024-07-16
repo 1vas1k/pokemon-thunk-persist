@@ -1,53 +1,68 @@
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image, ActivityIndicator } from "react-native";
 import { COLORS } from "../constants/colors";
 import { BackImage } from "./BackImage";
 import { useDispatch } from "react-redux";
 import { setIsModalActive } from "../store/features/modalSlice";
+import { AppDispatch, RootState } from "../store/store";
+import { useSelector } from "react-redux";
+import { IInfo } from "../store/features/pokemonInfoSlice";
 
 export const InfoModal = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+  const info = useSelector<RootState, IInfo>((state) => state.pokemonInfo);
   return (
     <View style={styles.back}>
       <View style={styles.container}>
-        <View style={styles.backContainer}>
-          <BackImage handleClick={() => dispatch(setIsModalActive(false))} />
-        </View>
-        <View style={styles.introdutionContainer}>
-          <View style={styles.imageContainer}>
-            <Image
-              style={styles.imageStyled}
-              source={require("../assets/pikachu.png")}
-            />
-            {/* <Image source={{uri: image}} /> */}
+        {info.isLoading ? (
+          <View style={styles.conteinerForLoader}>
+            <ActivityIndicator size={70} color={COLORS.DARK} />
           </View>
-          <View style={styles.introdutionContent}>
-            <Text style={styles.introdutionText}>Polemon Name</Text>
-            <Text style={styles.introdutionText}>ID: pokemonid</Text>
-            <Text style={styles.introdutionText}>
-              Types: pokemon types Types
-            </Text>
+        ) : (
+          <View>
+            <View style={styles.backContainer}>
+              <BackImage
+                handleClick={() => dispatch(setIsModalActive(false))}
+              />
+            </View>
+            <View style={styles.introdutionContainer}>
+              <View style={styles.imageContainer}>
+                <Image
+                  style={styles.imageStyled}
+                  source={{ uri: info.image }}
+                />
+              </View>
+              <View style={styles.introdutionContent}>
+                <Text style={styles.introdutionText}>{info.name}</Text>
+                <Text style={styles.introdutionText}>ID: {info.id}</Text>
+                <Text style={styles.introdutionText}>Types: {info.types}</Text>
+              </View>
+            </View>
+            <View style={styles.baseContainer}>
+              <Text style={styles.baseText}>
+                <Text style={styles.boldText}>Height:</Text> {info.height} m
+              </Text>
+              <Text style={styles.baseText}>
+                <Text style={styles.boldText}>Width:</Text> {info.weight} kg
+              </Text>
+              <Text style={styles.baseText}>
+                <Text style={styles.boldText}>Base exp:</Text> {info.baseExp} pt
+              </Text>
+            </View>
+            <View style={styles.statsContainer}>
+              <Text style={(styles.baseText, styles.boldText)}>Stats</Text>
+              <Text style={styles.baseText}>HP: {info.hp}</Text>
+              <Text style={styles.baseText}>ATTAK: {info.attack}</Text>
+              <Text style={styles.baseText}>DEFENSE: {info.defense}</Text>
+              <Text style={styles.baseText}>SPEED: {info.speed}</Text>
+              <Text style={styles.baseText}>
+                SPECIAL-ATTACK: {info.specialAttack}
+              </Text>
+              <Text style={styles.baseText}>
+                SPECIAL-DEFENSE: {info.specialDefense}
+              </Text>
+            </View>
           </View>
-        </View>
-        <View style={styles.baseContainer}>
-          <Text style={styles.baseText}>
-            <Text style={styles.boldText}>Height:</Text> 1.3 m
-          </Text>
-          <Text style={styles.baseText}>
-            <Text style={styles.boldText}>Width:</Text> 402 kg
-          </Text>
-          <Text style={styles.baseText}>
-            <Text style={styles.boldText}>Base exp:</Text> 100 pt
-          </Text>
-        </View>
-        <View style={styles.statsContainer}>
-          <Text style={(styles.baseText, styles.boldText)}>Stats</Text>
-          <Text style={styles.baseText}>HP: </Text>
-          <Text style={styles.baseText}>ATTAK: </Text>
-          <Text style={styles.baseText}>DEFENSE: </Text>
-          <Text style={styles.baseText}>SPEED: </Text>
-          <Text style={styles.baseText}>SPECIAL-ATTACK: </Text>
-          <Text style={styles.baseText}>SPECIAL-DEFENSE: </Text>
-        </View>
+        )}
       </View>
     </View>
   );
@@ -121,5 +136,11 @@ const styles = StyleSheet.create({
   statsContainer: {
     width: "100%",
     gap: 5,
+  },
+  conteinerForLoader: {
+    // paddingTop: 50,
+    height: 200,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

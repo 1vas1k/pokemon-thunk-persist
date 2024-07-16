@@ -3,6 +3,10 @@ import { PokemonItem } from "./PokemonItem";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { COLORS } from "../constants/colors";
+import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../store/store";
+import { useDispatch } from "react-redux";
+import { setIsLoading } from "../store/features/loaderSlice";
 
 export interface IPokeItem {
   name: string;
@@ -10,9 +14,10 @@ export interface IPokeItem {
 }
 
 export const CatchingContent = () => {
+  const loader = useSelector<RootState>((state) => state.loader.isLoading);
+  const dispatch = useDispatch<AppDispatch>();
   const API_POKEMON = `https://pokeapi.co/api/v2/pokemon/`;
   const [pokemonsArr, setPokemonsArr] = useState<IPokeItem[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const getNumbers = (): number[] => {
     const numbers: Set<number> = new Set();
     while (numbers.size < 5) {
@@ -24,7 +29,7 @@ export const CatchingContent = () => {
   const fetchPokemons = async (numbers: number[]) => {
     const pokemons: IPokeItem[] = [];
     try {
-      setIsLoading(true);
+      dispatch(setIsLoading(true));
       for (let item of numbers) {
         const response = await axios.get(`${API_POKEMON}${item}`);
         const data = response.data;
@@ -33,21 +38,16 @@ export const CatchingContent = () => {
           image: data.sprites.front_default,
         };
         pokemons.push(pokemon);
-        // setPokemonsArr(pokemons);
-        // console.log(pokemons);
-        // console.log(pokemons);
       }
-      //   console.log(pokemons);
-      setIsLoading(false);
+      dispatch(setIsLoading(false));
       return pokemons;
     } catch (error) {
       console.log(error);
-      setIsLoading(false);
+      dispatch(setIsLoading(false));
       return pokemons;
     }
   };
   useEffect(() => {
-    // console.log(getNumbers());
     const getArray = async () => {
       const arr = await fetchPokemons(getNumbers());
       console.log("arr in useEffect");
@@ -59,7 +59,7 @@ export const CatchingContent = () => {
 
   return (
     <View style={styles.container}>
-      {isLoading ? (
+      {loader ? (
         <View style={styles.conteinerForLoader}>
           <ActivityIndicator size={70} color={COLORS.DARK} />
         </View>

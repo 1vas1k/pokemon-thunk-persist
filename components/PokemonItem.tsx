@@ -8,6 +8,8 @@ import {
 import { COLORS } from "../constants/colors";
 import { useDispatch } from "react-redux";
 import { setIsModalActive } from "../store/features/modalSlice";
+import { getPokemonInfo } from "../store/features/pokemonInfoSlice";
+import { AppDispatch } from "../store/store";
 
 interface IProps {
   image: string;
@@ -16,13 +18,17 @@ interface IProps {
 }
 
 export const PokemonItem = ({ image, numberInList, pokemonName }: IProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+  const handleClick = () => {
+    dispatch(getPokemonInfo(pokemonName));
+    dispatch(setIsModalActive(true));
+  };
   return (
     <View style={styles.container}>
       <TouchableHighlight
         underlayColor={COLORS.LIGHT}
         style={styles.informationContainer}
-        onPress={() => dispatch(setIsModalActive(true))}
+        onPress={() => handleClick()}
       >
         <Image
           style={styles.infoImageStyled}
