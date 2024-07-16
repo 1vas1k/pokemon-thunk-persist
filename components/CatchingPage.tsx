@@ -1,9 +1,9 @@
-import { StyleSheet, View, Text } from "react-native";
+import { PatternPage } from "./PatternPage";
+import { CatchingContent } from "./CatchingContent";
 
 export const CatchingPage = () => {
   return (
-    <View>
-      <Text>CatchingPage</Text>
-    </View>
+    // <InfoModal />
+    <PatternPage title="Catch pokemons" component={<CatchingContent />} />
   );
 };

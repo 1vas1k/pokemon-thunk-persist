@@ -27,11 +27,11 @@ export const PokemonItem = ({ image, numberInList, pokemonName }: IProps) => {
         />
       </TouchableHighlight>
       <View style={styles.imageContainer}>
-        <Image
+        {/* <Image
           style={styles.imageStyled}
           source={require("../assets/pikachu.png")}
-        />
-        {/* <Image source={require(image)} /> */}
+        /> */}
+        <Image style={styles.imageStyled} source={{ uri: image }} />
       </View>
       <Text style={styles.textStyled}>
         {numberInList}. {pokemonName}
