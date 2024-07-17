@@ -3,4 +3,5 @@ export const COLORS = {
   DARK_OPAQUE: "rgba(40, 38, 44, 0.6)",
   PRIMARY: "rgb(153, 143, 199)",
   LIGHT: "rgb(212, 194, 252)",
+  BG_LIGHT: "rgb(255, 232, 214)",
 };

@@ -34,7 +34,15 @@ export const InfoModal = () => {
               <View style={styles.introdutionContent}>
                 <Text style={styles.introdutionText}>{info.name}</Text>
                 <Text style={styles.introdutionText}>ID: {info.id}</Text>
-                <Text style={styles.introdutionText}>Types: {info.types}</Text>
+                <Text style={styles.introdutionText}>
+                  Types:{" "}
+                  {info.types.map((item, index) => {
+                    if (index + 1 !== info.types.length) {
+                      return item + ", ";
+                    }
+                    return item;
+                  })}
+                </Text>
               </View>
             </View>
             <View style={styles.baseContainer}>

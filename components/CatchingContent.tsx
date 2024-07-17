@@ -71,6 +71,7 @@ export const CatchingContent = () => {
               image={item.image}
               numberInList={index + 1}
               pokemonName={item.name}
+              isCatched={false}
             />
           );
         })
