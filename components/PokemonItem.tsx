@@ -10,21 +10,27 @@ import { useDispatch } from "react-redux";
 import { setIsModalActive } from "../store/features/modalSlice";
 import { getPokemonInfo } from "../store/features/pokemonInfoSlice";
 import { AppDispatch } from "../store/store";
-import { catchPokemon, ICatchedPokemon } from "../store/features/catchSlice";
+import {
+  catchPokemon,
+  freePokemon,
+  ICatchedPokemon,
+} from "../store/features/catchSlice";
+import { v1 } from "uuid";
 
 interface IProps {
   image: string;
   numberInList: number;
   pokemonName: string;
-  isCatched: boolean;
+  uniqueId?: string;
 }
 
 export const PokemonItem = ({
   image,
   numberInList,
   pokemonName,
-  isCatched,
+  uniqueId,
 }: IProps) => {
+  const newId = v1();
   const dispatch = useDispatch<AppDispatch>();
   const handleInfo = () => {
     dispatch(getPokemonInfo(pokemonName));
@@ -34,13 +40,14 @@ export const PokemonItem = ({
     const pokemonToCatch: ICatchedPokemon = {
       name: pokemonName,
       image: image,
-      // id: 1
+      id: newId,
     };
+    console.log(pokemonToCatch);
     dispatch(catchPokemon(pokemonToCatch));
   };
 
   const handleFree = () => {
-    console.log("Now this pokemon is free");
+    if (uniqueId) dispatch(freePokemon(uniqueId));
   };
   return (
     <View style={styles.container}>
@@ -65,7 +72,7 @@ export const PokemonItem = ({
           borderRadius: 5,
           overflow: "hidden",
         }}
-        onPress={() => (isCatched ? handleFree() : handleCatch())}
+        onPress={() => (uniqueId ? handleFree() : handleCatch())}
       >
         <View
           style={{
@@ -73,7 +80,7 @@ export const PokemonItem = ({
             backgroundColor: COLORS.LIGHT,
           }}
         >
-          <Text>{isCatched ? "Free pokemon" : "Catch me"}</Text>
+          <Text>{uniqueId ? "Free pokemon" : "Catch me"}</Text>
         </View>
       </TouchableHighlight>
       <View style={styles.imageContainer}>

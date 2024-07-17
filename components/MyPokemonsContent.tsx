@@ -7,7 +7,7 @@ import { NoPokemons } from "./NoPokemons";
 
 export const MyPokemonsContent = () => {
   const catchedPokemons = useSelector<RootState, ICatchedPokemon[]>(
-    (state) => state.catch
+    (state) => state.catching
   );
   return (
     <View style={styles.container}>
@@ -19,7 +19,7 @@ export const MyPokemonsContent = () => {
               image={item.image}
               numberInList={index + 1}
               pokemonName={item.name}
-              isCatched={true}
+              uniqueId={item.id}
             />
           );
         })

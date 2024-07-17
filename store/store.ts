@@ -19,13 +19,13 @@ const rootReducer = combineReducers({
   modal: modalReducer,
   loader: loaderReducer,
   pokemonInfo: pokemonInfoReducer,
-  catch: catchReducer,
+  catching: catchReducer,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["catch"],
+  whitelist: ["catching"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

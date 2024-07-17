@@ -11,7 +11,6 @@ export const getPokemonInfo = createAsyncThunk(
       if (!response) {
         throw new Error("Network response was not ok");
       }
-      const data = await response.data;
       const resultData = {
         image: response.data.sprites.front_default,
         name: response.data.forms[0].name,
