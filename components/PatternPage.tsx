@@ -7,6 +7,7 @@ import { InfoModal } from "./InfoModal";
 import { BackImage } from "./BackImage";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import { PokeballAnimation } from "./PokeballAnimation";
 
 interface IProps {
   title: string;
@@ -24,6 +25,7 @@ export const PatternPage = ({ title, component }: IProps) => {
         <Text style={styles.titleStyled}>{title}</Text>
       </View>
       {component}
+      {/* <PokeballAnimation /> */}
     </View>
   );
 };

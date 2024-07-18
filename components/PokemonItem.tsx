@@ -16,6 +16,7 @@ import {
   ICatchedPokemon,
 } from "../store/features/catchSlice";
 import { v1 } from "uuid";
+import { setInProgress } from "../store/features/inProgressSlice";
 
 interface IProps {
   image: string;
@@ -43,6 +44,7 @@ export const PokemonItem = ({
       id: newId,
     };
     console.log(pokemonToCatch);
+    dispatch(setInProgress(true));
     dispatch(catchPokemon(pokemonToCatch));
   };
 

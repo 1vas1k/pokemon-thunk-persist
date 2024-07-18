@@ -1,4 +1,4 @@
-import { StyleSheet, View, ActivityIndicator } from "react-native";
+import { StyleSheet, View, ActivityIndicator, Button } from "react-native";
 import { PokemonItem } from "./PokemonItem";
 import { useEffect, useState } from "react";
 import axios from "axios";

@@ -3,6 +3,7 @@ import modalReducer from "./features/modalSlice";
 import loaderReducer from "./features/loaderSlice";
 import pokemonInfoReducer from "./features/pokemonInfoSlice";
 import catchReducer from "./features/catchSlice";
+import inProgressReducer from "./features/inProgressSlice";
 import {
   persistStore,
   persistReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   loader: loaderReducer,
   pokemonInfo: pokemonInfoReducer,
   catching: catchReducer,
+  catchingProgress: inProgressReducer,
 });
 
 const persistConfig = {
